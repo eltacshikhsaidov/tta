@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="utf-8"/>
+    <title>Contact</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap');
+
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            list-style: none;
+            text-decoration: none;
+            font-family: 'Josefin Sans', sans-serif;
+        }
+
+        body{
+            background-color: #f3f5f9;
+        }
+
+        .wrapper{
+            display: flex;
+            position: relative;
+        }
+
+        .sidebar{
+            overflow-x: hidden;
+        }
+
+        .wrapper .sidebar{
+            width: 200px;
+            height: 100%;
+            background: #4b4276;
+            padding: 30px 0px;
+            position: fixed;
+        }
+
+        .wrapper .sidebar h2{
+            color: #fff;
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .wrapper .sidebar ul li{
+            padding: 15px;
+            border-bottom: 1px solid #bdb8d7;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .wrapper .sidebar ul li a{
+            color: #bdb8d7;
+            display: block;
+        }
+
+        .wrapper .sidebar ul li a .fas{
+            width: 25px;
+        }
+
+        .wrapper .sidebar ul li:hover{
+            background-color: #594f8d;
+        }
+
+        .wrapper .sidebar ul li:hover a{
+            color: #fff;
+        }
+
+        .wrapper .sidebar .social_media{
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+        }
+
+        .wrapper .sidebar .social_media a{
+            display: block;
+            width: 40px;
+            background: #594f8d;
+            height: 40px;
+            line-height: 45px;
+            text-align: center;
+            margin: 0 5px;
+            margin-bottom: 20px;
+            color: #bdb8d7;
+            border-radius: 5px;
+        }
+
+        /*Social media icons when we hover them*/
+        .social_media a:hover i{
+            color: white;
+            transition: 0.5s;
+        }
+
+        .wrapper .main_content{
+            width: 100%;
+            margin-left: 200px;
+        }
+
+        .wrapper .main_content .header{
+            padding: 20px;
+            background: #fff;
+            color: #717171;
+            border-bottom: 1px solid #e0e4e8;
+        }
+
+        .wrapper .main_content .info{
+            margin: 20px;
+            color: #717171;
+            line-height: 25px;
+        }
+
+        .wrapper .main_content .info div{
+            margin-bottom: 20px;
+        }
+
+        @media (max-height: 500px){
+            .social_media{
+                display: none !important;
+            }
+        }
+
+        /*Logo*/
+
+        .logo{
+            height: 80px;
+            width: 100px;
+            margin-left: 45px;
+            margin-bottom: 20px;
+            border-radius: 33px;
+        }
+
+        .logo:hover{
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 8px 25px 0 rgba(0, 0, 0, 0.25);
+            transition: 0.5s;
+        }
+
+    /*    ----------------------------------------------*/
+
+
+        $red: #56baed;
+
+        *,
+        *:before,
+        *:after {
+        @include box-sizing(border-box);
+        }
+
+        h1 {
+            text-align: center;
+            color: #a8a8a8;
+        @include text-shadow(1px 1px 0 rgba(white, 1));
+        }
+
+        form {
+            max-width: 600px;
+            text-align: center;
+            margin: 20px auto;
+
+        input, textarea {
+            border:0; outline:0;
+            padding: 1em;
+        @include border-radius(8px);
+            display: block;
+            width: 100%;
+            margin-top: 1em;
+            font-family: 'Merriweather', sans-serif;
+        @include box-shadow(0 1px 1px rgba(black, 0.1));
+            resize: none;
+
+        &:focus {
+         @include box-shadow(0 0px 2px rgba($red, 1)!important);
+         }
+        }
+
+        #input-submit {
+            color: white;
+            background: $red;
+            cursor: pointer;
+
+        &:hover {
+         @include box-shadow(0 1px 1px 1px rgba(#aaa, 0.6));
+         }
+        }
+
+        textarea {
+            height: 126px;
+        }
+        }
+
+
+        .half {
+            float: left;
+            width: 48%;
+            margin-bottom: 1em;
+        }
+
+        .right { width: 50%; }
+
+        .left {
+            margin-right: 2%;
+        }
+
+
+        @media (max-width: 480px) {
+            .half {
+                width: 100%;
+                float: none;
+                margin-bottom: 0;
+            }
+        }
+
+
+        /* Clearfix */
+        .cf:before,
+        .cf:after {
+            content: " "; /* 1 */
+            display: table; /* 2 */
+        }
+
+        .cf:after {
+            clear: both;
+        }
+    </style>
+</head>
+
+<body>
+    <div th:replace="~{navigation :: navigation(Contact)}"></div>
+
+
+    <h1>Contact us if you have any report or feedback</h1>
+    <form class="cf">
+        <div class="half left cf">
+            <input type="text" id="input-name" placeholder="Name">
+            <input type="email" id="input-email" placeholder="Email address">
+            <input type="text" id="input-subject" placeholder="Subject">
+        </div>
+        <div class="half right cf">
+            <textarea name="message" type="text" id="input-message" placeholder="Message"></textarea>
+        </div>
+        <input type="submit" value="Submit" id="input-submit">
+    </form>
+
+</body>
+</html>

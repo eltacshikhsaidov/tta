@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="utf-8"/>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+    <style>
+
+        @import url('https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap');
+
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            list-style: none;
+            text-decoration: none;
+            font-family: 'Josefin Sans', sans-serif;
+        }
+
+        body{
+            background-color: #f3f5f9;
+        }
+
+        .wrapper{
+            display: flex;
+            position: relative;
+        }
+
+        .sidebar{
+            overflow-x: hidden;
+        }
+
+        .wrapper .sidebar{
+            width: 200px;
+            height: 100%;
+            background: #4b4276;
+            padding: 30px 0px;
+            position: fixed;
+        }
+
+        .wrapper .sidebar h2{
+            color: #fff;
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .wrapper .sidebar ul li{
+            padding: 15px;
+            border-bottom: 1px solid #bdb8d7;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .wrapper .sidebar ul li a{
+            color: #bdb8d7;
+            display: block;
+        }
+
+        .wrapper .sidebar ul li a .fas{
+            width: 25px;
+        }
+
+        .wrapper .sidebar ul li:hover{
+            background-color: #594f8d;
+        }
+
+        .wrapper .sidebar ul li:hover a{
+            color: #fff;
+        }
+
+        .wrapper .sidebar .social_media{
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+        }
+
+        .wrapper .sidebar .social_media a{
+            display: block;
+            width: 40px;
+            background: #594f8d;
+            height: 40px;
+            line-height: 45px;
+            text-align: center;
+            margin: 0 5px;
+            margin-bottom: 20px;
+            color: #bdb8d7;
+            border-radius: 5px;
+        }
+
+        /*Social media icons when we hover them*/
+        .social_media a:hover i{
+            color: white;
+            transition: 0.5s;
+        }
+
+        .wrapper .main_content{
+            width: 100%;
+            margin-left: 200px;
+        }
+
+        .wrapper .main_content .header{
+            padding: 20px;
+            background: #fff;
+            color: #717171;
+            border-bottom: 1px solid #e0e4e8;
+        }
+
+        .wrapper .main_content .info{
+            margin: 20px;
+            color: #717171;
+            line-height: 25px;
+        }
+
+        .wrapper .main_content .info div{
+            margin-bottom: 20px;
+        }
+
+        @media (max-height: 500px){
+            .social_media{
+                display: none !important;
+            }
+        }
+
+        /*Logo*/
+
+        .logo{
+            height: 80px;
+            width: 100px;
+            margin-left: 45px;
+            margin-bottom: 20px;
+            border-radius: 33px;
+            background-image: url("../static/logo-removebg.png");
+        }
+
+        .logo:hover{
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 8px 25px 0 rgba(0, 0, 0, 0.25);
+            transition: 0.5s;
+        }
+
+        a{
+            text-decoration: none;
+        }
+
+
+    </style>
+</head>
+
+<!--<div th:fragment="navigation(activeTab)">-->
+<!--    <nav class="navbar navbar-expand-lg navbar-light bg-light">-->
+<!--        <div class="collapse navbar-collapse" id="navbarNav">-->
+<!--            <ul class="navbar-nav">-->
+<!--                <li class="nav-item" th:classappend="${activeTab == 'Home' ? 'active' : ''}">-->
+<!--                    <a class="nav-link" th:href="@{/}">Home</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item" th:classappend="${activeTab == 'Tours' ? 'active' : ''}">-->
+<!--                    <a class="nav-link" th:href="@{/tours}">Tours</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item" th:classappend="${activeTab == 'My Tours' ? 'active' : ''}">-->
+<!--                    <a class="nav-link" th:href="@{/myTours}">My Tours</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item" sec:authorize="hasRole('ADMIN')">-->
+<!--                    <a class="nav-link" th:href="@{/admin}">Admin Panel</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item" sec:authorize="isAnonymous()">-->
+<!--                    <a class="nav-link btn btn-success" th:href="@{/login}">Login</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item" sec:authorize="isAuthenticated()">-->
+<!--                    <form th:action="@{/logout}" method="POST">-->
+<!--                        <input type="submit" class="btn btn-danger" value="Logout" />-->
+<!--                    </form>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--        </div>-->
+<!--    </nav>-->
+<!--</div>-->
+
+
+
+<div th:fragment="navigation(activeTab)">
+    <div class="wrapper">
+        <div class="sidebar" id="mySidebar" >
+            <a th:href="@{/}"><img src="../static/logo-removebg.png" class="logo" alt="logo"></a>
+            <ul>
+                <li th:classappend="${activeTab == 'Home' ? 'active' : ''}">
+                    <a style="text-decoration: none;" th:href="@{/}"><i class="fas fa-home"></i>Home</a>
+                </li>
+                <li th:classappend="${activeTab == 'About' ? 'active' : ''}">
+                    <a style="text-decoration: none;" th:href="@{/about}"><i class="fas fa-address-card"></i>About</a>
+                </li>
+                <li th:classappend="${activeTab == 'Tours' ? 'active' : ''}">
+                    <a style="text-decoration: none;" th:href="@{/tours}">Tours</a>
+                </li>
+
+                <li th:classappend="${activeTab == 'My Tours' ? 'active' : ''}" sec:authorize="hasRole('USER') || hasRole('ADMIN')">
+                    <a style="text-decoration: none;" th:href="@{/myTours}">My Tours</a>
+                </li>
+                <li sec:authorize="hasRole('ADMIN')">
+                    <a style="text-decoration: none;" th:href="@{/admin}">Admin Panel</a>
+                </li>
+                <li th:classappend="${activeTab == 'Contact' ? 'active' : ''}">
+                    <a style="text-decoration: none;" th:href="@{/contact}"><i class="fas fa-address-book"></i>Contact</a>
+                </li>
+                <li sec:authorize="isAnonymous()">
+                    <a style="text-decoration: none;" th:href="@{/login}"><i class="fas fa-sign-in-alt"></i>Login</a>
+                </li>
+                <li sec:authorize="isAuthenticated()">
+                    <form th:action="@{/logout}" method="POST">
+                        <input type="submit" class="btn btn-danger" value="Logout" />
+                    </form>
+                </li>
+            </ul>
+            <div class="social_media">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
